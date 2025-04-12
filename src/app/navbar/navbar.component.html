@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <a routerLink="/" class="logo">MWatch</a>
+
+  <div class="nav-buttons">
+    <app-search></app-search>
+
+    <ng-container *ngIf="!isLoggedIn; else loggedIn">
+      <a routerLink="/login" class="nav-btn">Login</a>
+      <a routerLink="/register" class="nav-btn">Register</a>
+    </ng-container>
+
+    <ng-template #loggedIn>
+      <button (click)="logout()" class="nav-btn">Logout</button>
+    </ng-template>
+  </div>
+</nav>

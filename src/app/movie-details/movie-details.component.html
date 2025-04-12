@@ -1,0 +1,28 @@
+<div class="movie-details" *ngIf="movie">
+    <div class="poster">
+      <img [src]="movie.Poster" alt="{{ movie.Title }}" />
+    </div>
+    <div class="details-info">
+        <h2>{{ movie.Title }} <span>({{ releaseYear }})</span></h2>
+        <div class="meta">
+        <span>{{ movie.Rated }}</span> • 
+        <span>{{ movie.Released }}</span> • 
+        <span>{{ movie.Genre }}</span> • 
+        <span>{{ movie.Runtime }}</span>
+      </div>
+      <p class="tagline">The most dangerous enemy is an old friend.</p>
+  
+      <div class="section-title">Overview</div>
+      <p class="overview">{{ movie.Plot }}</p>
+  
+      <div class="detail-grid">
+        <p><strong>Director:</strong> {{ movie.Director }}</p>
+        <p><strong>Writer:</strong> {{ movie.Writer }}</p>
+        <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+        <p><strong>Language:</strong> {{ movie.Language }}</p>
+        <p><strong>Country:</strong> {{ movie.Country }}</p>
+        <p><strong>IMDB Rating:</strong> {{ movie.imdbRating }}</p>
+      </div>
+    </div>
+  </div>
+  

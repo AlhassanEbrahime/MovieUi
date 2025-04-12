@@ -1,0 +1,14 @@
+<div class="search-container">
+    <form (ngSubmit)="onSubmit()">
+      <div class="search-input-wrapper">
+        <i class="fa fa-search search-icon"></i>
+        <input 
+          type="text" 
+          [formControl]="searchControl" 
+          placeholder="Search for movies..." 
+          class="search-input"
+        />
+      </div>
+    </form>
+  </div>
+  
