@@ -27,7 +27,7 @@ Once the server is running, open your browser and navigate to `http://localhost:
 ![image](https://github.com/user-attachments/assets/d16f0fc6-2f58-4ab8-8d1f-02ef5c38e4e6)
 
 ### Search
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/3e6a065b-4296-4037-9e36-ea841fb2efe1)
 
 
 
