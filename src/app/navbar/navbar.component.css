@@ -1,0 +1,74 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Navbar Styling */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #121212; /* Dark background */
+    color: white;
+    padding: 0 20px; /* Horizontal padding */
+    height: 70px; /* Fixed height */
+    font-family: 'Arial', sans-serif; /* Clean font */
+  }
+  
+  /* Logo Styling */
+  .logo {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+  
+  .logo:hover {
+    color: #ff5722; /* Orange hover effect */
+  }
+  
+  /* Nav Buttons Container */
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between buttons */
+  }
+  
+  /* Search Component */
+  app-search {
+    margin-right: 20px; /* Add spacing between search and buttons */
+  }
+  
+  /* Navigation Buttons */
+  .nav-btn {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-btn:hover {
+    background-color: #ff5722; /* Orange hover effect */
+    color: #121212; /* Dark text on hover */
+    border-color: #ff5722;
+  }
+  
+  /* Logout Button */
+  button.nav-btn {
+    background-color: #ff5722; /* Default orange for logout */
+    color: #121212;
+    border: none;
+  }
+  
+  button.nav-btn:hover {
+    background-color: #e64a19; /* Slightly darker orange on hover */
+  }

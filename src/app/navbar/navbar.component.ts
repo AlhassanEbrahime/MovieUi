@@ -1,9 +1,9 @@
+// src/app/navbar/navbar.component.ts (Completed)
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
-import { SearchComponent } from '../search/search.component'; // adjust path if needed
-
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-navbar',
@@ -12,21 +12,23 @@ import { SearchComponent } from '../search/search.component'; // adjust path if 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
-
+export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
 
-  constructor(public auth: AuthService) {
-    auth.userData.subscribe({
-      next: () => {
-        this.isLoggedIn = auth.userData.getValue() !== null;
+  constructor(public auth: AuthService) {}
+
+  ngOnInit(): void {
+    this.auth.userData.subscribe({
+      next: (userData) => {
+        this.isLoggedIn = userData !== null;
+        // Check if user has admin role
+        this.isAdmin = userData?.role === 'ADMIN';
       }
     });
   }
 
-
-  logout() {
+  logout(): void {
     this.auth.logout();
-    this.isLoggedIn = false;
   }
 }

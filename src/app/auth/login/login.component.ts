@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     if (this.auth.isLoggedIn()) {
-      this.auth.decodeUserData();
       this.router.navigate(['/']);
     }
     this.form = this.fb.group({
@@ -34,15 +32,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.auth.login(this.form.value).subscribe({
-        next:(res)=>{
-          console.log(res)
-          this.auth.saveTokens(res);
-          this.auth.decodeUserData();
-          this.router.navigate(['/']).then(r=>r)
+      const { username, password } = this.form.value;
+      this.auth.login(username, password).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
         },
-        error:(err)=>{
-          console.log(err)
+        error: (err) => {
+          console.error(err);
         }
       });
     }

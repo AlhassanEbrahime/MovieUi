@@ -22,7 +22,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      this.auth.decodeUserData();
       this.router.navigate(['/']);
     }
     this.form = this.fb.group({
@@ -34,15 +33,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.auth.register(this.form.value).subscribe({
-        next:(res)=>{
-          console.log(res)
-          this.auth.saveTokens(res);
-          this.auth.decodeUserData();
-          this.router.navigate(['/']).then(r=>r)
+      const { username, email, password } = this.form.value;
+      this.auth.register(username, email, password).subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
         },
-        error:(err)=>{
-          console.log(err)
+        error: (err) => {
+          console.error(err);
         }
       });
     }

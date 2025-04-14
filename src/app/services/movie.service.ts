@@ -1,3 +1,4 @@
+// src/app/services/movie.service.ts (Updated)
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, of } from 'rxjs';
@@ -44,24 +45,40 @@ export class MovieService {
       );
   }
 
-  // Add a single movie
+  searchOmdbMovies(query: string): Observable<Movie[]> {
+    if (!query.trim()) {
+      return of([]);
+    }
+    
+    return this.http.get<Movie[]>(`${this.baseUrl}/search?query=${query}`, { headers: this.headers });
+  }
+
+  getOmdbMovieDetails(imdbId: string): Observable<Movie> {
+    return this.http.get<Movie>(`${this.baseUrl}/omdb/${imdbId}`, { headers: this.headers });
+  }
+
   addMovie(movie: MovieRequest): Observable<MovieRequest> {
-    return this.http.post<MovieRequest>(this.baseUrl, movie, {headers: this.headers});
+    return this.http.post<MovieRequest>(this.baseUrl, movie, { headers: this.headers });
   }
 
-  // Add multiple movies
   addMovies(movies: Movie[]): Observable<Movie[]> {
-    return this.http.post<Movie[]>(`${this.baseUrl}/bulk`, movies, {headers: this.headers});
+    return this.http.post<Movie[]>(`${this.baseUrl}/batch-add`, movies, { headers: this.headers });
   }
 
-  // Delete a single movie by ID
   deleteMovie(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`,  {headers: this.headers});
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.headers });
   }
 
-  // Delete multiple movies by IDs
   deleteMovies(ids: number[]): Observable<void> {
-    const options = { body: ids };
-    return this.http.delete<void>(`${this.baseUrl}/bulk`, options);
+    return this.http.post<void>(`${this.baseUrl}/batch-delete`, ids, { headers: this.headers });
+  }
+
+  updateAuthHeaders() {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      this.headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    } else {
+      this.headers = new HttpHeaders();
+    }
   }
 }
