@@ -12,7 +12,7 @@ interface AuthResponse {
 
 interface UserData {
   sub: string; 
-  role: string; 
+  authorities : string; 
   exp: number; 
   iat: number; 
 }

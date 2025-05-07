@@ -14,7 +14,9 @@ export class AuthGuard implements CanActivate {
 
     if (state.url.includes('/admin')) {
       const userData = this.auth.userData.getValue();
-      if (userData?.role !== 'ADMIN') {
+      console.log(userData)
+      if (userData?.authorities !== 'ADMIN') {
+      
         this.router.navigate(['/']);
         return false;
       }

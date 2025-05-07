@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieService } from '../../services/movie.service';
 import { FormControl } from '@angular/forms';
 import { Movie } from '../../models/movie.model';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+// import { debounceTime, distinctUntilChanged, forkJoin} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-movie-search',
@@ -15,7 +16,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class MovieSearchComponent {
   searchControl = new FormControl('');
-  searchResults: Movie[] = [];
+  searchResults:Movie [] = [];
   selectedMovies: Movie[] = [];
   isLoading = false;
   errorMessage = '';
@@ -39,7 +40,7 @@ export class MovieSearchComponent {
     
     this.movieService.searchOmdbMovies(query).subscribe({
       next: (results) => {
-        this.searchResults = results;
+        this.searchResults= results;        
         this.isLoading = false;
       },
       error: (error) => {
@@ -68,20 +69,27 @@ export class MovieSearchComponent {
       this.errorMessage = 'Please select at least one movie to add';
       return;
     }
-
     this.isLoading = true;
-    this.movieService.addMovies(this.selectedMovies).subscribe({
-      next: () => {
-        this.selectedMovies = [];
-        this.isLoading = false;
-        this.errorMessage = '';
-        // Show success message
-        alert('Movies added successfully');
+    
+    const detailRequests = this.selectedMovies.map(movie => 
+      this.movieService.getOmdbMovieDetails(movie.imdbID)
+    );
+    
+    forkJoin(detailRequests).subscribe({
+      next: (detailedMovies) => {
+        this.movieService.addMovies(detailedMovies).subscribe({
+          next: () => {
+            this.selectedMovies = [];
+            this.isLoading = false;
+            this.errorMessage = '';
+            alert("Movies added succes"); 
+          },
+        });
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = 'Failed to add movies. Please try again.';
-        console.error('Error adding movies:', error);
+        this.errorMessage = 'Failed to get movie details. Please try again.';
+        console.error('Error getting movie details:', error);
       }
     });
   }

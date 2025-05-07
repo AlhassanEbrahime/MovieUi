@@ -10,6 +10,7 @@
     </ng-container>
 
     <ng-template #loggedIn>
+      <a *ngIf="isAdmin" routerLink="/admin" class="nav-btn">Admin Dashboard</a>
       <button (click)="logout()" class="nav-btn">Logout</button>
     </ng-template>
   </div>

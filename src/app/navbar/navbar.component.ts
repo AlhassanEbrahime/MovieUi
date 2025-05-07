@@ -22,8 +22,7 @@ export class NavbarComponent implements OnInit {
     this.auth.userData.subscribe({
       next: (userData) => {
         this.isLoggedIn = userData !== null;
-        // Check if user has admin role
-        this.isAdmin = userData?.role === 'ADMIN';
+        this.isAdmin = userData?.authorities === 'ADMIN';
       }
     });
   }

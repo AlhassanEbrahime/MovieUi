@@ -50,22 +50,31 @@ export class MovieService {
       return of([]);
     }
     
-    return this.http.get<Movie[]>(`${this.baseUrl}/search?query=${query}`, { headers: this.headers });
+    return this.http.get<SearchResponse>(`${this.baseUrl}/search?query=${query}`, { headers: this.headers })
+    .pipe(
+      map(response => {
+        if (response.Response === 'True') {
+          return response.Search;
+        }
+        return [];
+      })
+    );
   }
 
-  getOmdbMovieDetails(imdbId: string): Observable<Movie> {
-    return this.http.get<Movie>(`${this.baseUrl}/omdb/${imdbId}`, { headers: this.headers });
+  getOmdbMovieDetails(imdbId: string): Observable<MovieRequest> {
+    return this.http.get<MovieRequest>(`${this.baseUrl}/omdb/${imdbId}`, { headers: this.headers });
   }
 
   addMovie(movie: MovieRequest): Observable<MovieRequest> {
     return this.http.post<MovieRequest>(this.baseUrl, movie, { headers: this.headers });
   }
 
-  addMovies(movies: Movie[]): Observable<Movie[]> {
-    return this.http.post<Movie[]>(`${this.baseUrl}/batch-add`, movies, { headers: this.headers });
+  addMovies(movies: MovieRequest[]): Observable<MovieRequest[]> {
+    return this.http.post<MovieRequest[]>(`${this.baseUrl}/batch-add`, movies, { headers: this.headers });
   }
 
   deleteMovie(id: number): Observable<void> {
+    console.log(id)
     return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.headers });
   }
 

@@ -18,6 +18,8 @@ export const routes: Routes = [
   { path: 'search-results', component: SearchResultsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+
+
   { 
     path: 'admin', 
     component: AdminDashboardComponent,
@@ -29,4 +31,5 @@ export const routes: Routes = [
     ]
   },
   { path: '**', redirectTo: '' },
+  
 ];

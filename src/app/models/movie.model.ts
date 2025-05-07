@@ -24,14 +24,18 @@ export interface MovieRequest {
   Title: string;
   Year: string;
   Type: string;
-  Poster?: string;
-  imdbRating?: string;
   Plot?: string;
+  Released?: string;
+  Rated?: string;
+  Runtime?: string;
+  Genre?: string;
   Director?: string;
   Actors?: string;
-  Genre?: string;
-  Runtime?: string;
-  Released?: string;
+  Writer?: string;
+  Language?: string;
+  Country?: string;
+  Poster?: string;
+  imdbRating?: string;
 }
 
 export interface SearchResponse {
