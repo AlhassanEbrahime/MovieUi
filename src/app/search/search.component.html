@@ -1,14 +1,21 @@
 <div class="search-container">
+  <ng-container *ngIf="isLoggedIn; else loginPrompt">
     <form (ngSubmit)="onSubmit()">
       <div class="search-input-wrapper">
-        <i class="fa fa-search search-icon"></i>
+        <i class="search-icon fa fa-search"></i>
         <input 
           type="text" 
-          [formControl]="searchControl" 
+          class="search-input" 
           placeholder="Search for movies..." 
-          class="search-input"
-        />
+          [formControl]="searchControl"
+          aria-label="Search">
       </div>
     </form>
-  </div>
+  </ng-container>
   
+  <ng-template #loginPrompt>
+    <div class="login-prompt">
+      <p class="login-required-text">Please log in to use the search feature</p>
+    </div>
+  </ng-template>
+</div>
